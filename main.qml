@@ -1,30 +1,58 @@
 import QtQuick 2.12
+import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
+import QtQuick.Layouts 1.12
 import StephenQuan 1.0
 
 Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Syntax Highlighter Sample")
+    title: qsTr( "Qt Syntax Highlighter App" )
 
-    TextEdit {
-        id: textEdit
+    Flickable {
+        id: flickable
+
         anchors.fill: parent
         anchors.margins: 10
-        selectByMouse: true
-        text: [
-            "import QtQuick 2.12",
-            "",
-            "Item {",
-            "    Rectangle {",
-            "        width: 50",
-            "        height: 50",
-            "        color: '#800000'",
-            "    }",
-            "}",
-        ].join("\n") + "\n"
-        font.pointSize: 12
+
+        contentWidth: frame.width
+        contentHeight: frame.height
+        clip: true
+
+        Frame {
+            id: frame
+
+            width: flickable.width
+            contentWidth: columnLayout.width
+            contentHeight: columnLayout.height
+            clip: true
+
+            ColumnLayout {
+                id: columnLayout
+
+                width: frame.width
+
+                TextEdit {
+                    id: textEdit
+                    Layout.fillWidth: true
+                    selectByMouse: true
+                    text: [
+                        "import QtQuick 2.12",
+                        "",
+                        "Item {",
+                        "    Rectangle {",
+                        "        width: 50",
+                        "        height: 50",
+                        "        color: '#800000'",
+                        "    }",
+                        "}",
+                    ].join("\n") + "\n"
+                    font.pointSize: 12
+                }
+
+            }
+        }
     }
 
     SyntaxHighlighter {
